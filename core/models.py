@@ -38,6 +38,8 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             slug = slugify(self.title)
+            # Remove any characters that are not alphanumeric, hyphens, or underscores
+            slug = re.sub(r'[^a-zA-Z0-9_-]', '-', slug)
             unique_slug = slug
             num = 1
             while Post.objects.filter(slug=unique_slug).exists():

@@ -1,3 +1,92 @@
+# Bitcoin BUZZ: Bitcoin-Themed Forum
+
+### External User’s Goal:
+ Users can discuss Bitcoin, post topics, comment on posts, and engage in community discussions.
+### Site Owner’s Goal:
+ Provide a platform for Bitcoin enthusiasts to share knowledge, ask questions, and engage in discussions about Bitcoin.
+
+
+## User Stories
+
+### General User Stories
+- **Visitor**
+
+  - **"SEARCH POSTS"**: As a visitor, I want to search for posts by keywords to find relevant content without registering.
+    - **Acceptance Criteria**:
+      - A search bar is available on the homepage or a visible location.
+      - Search results are displayed based on relevance to the search query.
+    - **Tasks**:
+      - Develop a search functionality that queries the post titles and content.
+      - Display search results in a user-friendly format.
+
+  - **"VIEW POSTS"**: As a visitor, I want to view individual posts to read content without needing an account.
+    - **Acceptance Criteria**:
+      - Visitors can click on posts to view the full content.
+      - Post content is displayed in a readable and organized format.
+    - **Tasks**:
+      - Implement a post detail view that displays full post content.
+      - Ensure the post detail page is accessible without requiring login.
+
+  - **"LATEST POSTS"**: As a visitor, I want to view the latest posts on the homepage to see what's trending without logging in.
+    - **Acceptance Criteria**:
+      - Latest posts are visible on the homepage.
+      - No login is required to view these posts.
+    - **Tasks**:
+      - Implement a public-facing view that queries the latest posts.
+      - Design a homepage layout that features posts prominently.
+  
+
+### User Account Management
+- **User**
+  - **"ACCOUNT REGISTRATION"**: As a user, I want to register for an account to access interactive features like posting and commenting.
+    - **Acceptance Criteria**:
+      - A registration form is available.
+      - Users can create a new account by providing required information.
+    - **Tasks**:
+      - Develop a user registration form.
+      - Integrate user authentication using Django’s built-in User model.
+  - **"LOGIN/LOGOUT"**: As a user, I want to log in to and out of my account to securely access and exit my account's interactive features.
+    - **Acceptance Criteria**:
+      - Users can log in and out using their credentials.
+      - Session management is securely handled.
+    - **Tasks**:
+      - Create login and logout functionalities.
+      - Ensure sessions are securely managed and terminated upon logging out.
+
+### Content Interaction
+- **Registered User**
+  - **"CREATE AND VIEW POSTS"**: As a registered user, I want to create and read posts to engage with the community.
+    - **Acceptance Criteria**:
+      - Users can create posts via a form after logging in.
+      - All users can view posts in a readable format.
+    - **Tasks**:
+      - Implement post creation functionality with form validation.
+      - Set up permissions so only logged-in users can create posts.
+      - Ensure posts are displayed appropriately for all users.
+  - **"COMMENT ON POSTS"**: As a registered user, I want to comment on posts to participate in discussions.
+    - **Acceptance Criteria**:
+      - Comment functionality is available on posts for logged-in users.
+      - Comments are displayed under posts for all users to read.
+    - **Tasks**:
+      - Create a commenting system linked to user accounts.
+      - Display comments in a nested format under each post.
+
+### Security and Trust
+- **All Users**
+  - **"SECURE PERSONAL INFORMATION"**: As a user, I want to know that my personal information is secure.
+    - **Acceptance Criteria**:
+      - The site uses secure protocols like HTTPS.
+      - Sensitive data is encrypted and securely stored.
+    - **Tasks**:
+      - Implement HTTPS for all site transactions.
+      - Use Django’s security features to hash and secure passwords.
+
+
+
+
+
+
+
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
 Welcome Stefan Ruppe,

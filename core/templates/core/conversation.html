@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block content %}
+{% load static %}
+
+
+<div class="container">
+    <div class="row g-0">
+        <div class="col-md-6 masthead-text">
+            <!-- Post title goes in these h1 tags -->
+            <h1 class="post-title">{{ post.title }}</h1>
+            <!-- Post author goes before the | the post's created date goes after -->
+            <p class="post-subtitle">{{ post.author }} | {{ post.created_on }}</p>
+        </div>
+        
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col card mb-4  mt-3 left  top">
+            <div class="card-body">
+                <!-- The post content -->
+                <p class="card-text">
+                    {{ post.content | safe }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col card mb-4  mt-3 left  top">
+            <h3 class="">Replies</h3>
+            {% if replies %}
+                <ul>
+                    {% for reply in replies %}
+                    <li>
+                        <p>{{ reply.content }}</p>
+                        <p><small>Reply by {{ reply.author }} on {{ reply.created_on }}</small></p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No replies yet. Be the first to reply!</p>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
