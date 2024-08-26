@@ -37,33 +37,55 @@
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarText">
+            <div class="collapse navbar-collapse text-white" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == home_url %}active{% endif %}" aria-current="page"
+                        <a class="nav-link {% if request.path == home_url %}active{% endif %} text-white" aria-current="page"
                             href="{% url 'home' %}">Home</a>
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
+                            <a class="nav-link {% if request.path == logout_url %}active{% endif %} text-white" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
                         </li>
                         {% else %}
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
+                            <a class="nav-link {% if request.path == signup_url %}active{% endif %} text-white" aria-current="page"
                                 href="{% url 'account_signup' %}">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page" href="{% url 'account_login' %}">Login</a>
+                            <a class="nav-link {% if request.path == login_url %}active{% endif %} text-white" aria-current="page" href="{% url 'account_login' %}">Login</a>
                         </li>
                     {% endif %}
 
                 </ul>
-                <span class="navbar-text text-muted">
-                    the bitcoin forum
+
+                <!-- show logged in status on the right -->
+                <span class="navbar-text text-white">
+                    {% if user.is_authenticated %}
+                        Logged in as {{ user.username }}
+                    {% else %}
+                        Not logged in
+                    {% endif %}
                 </span>
             </div>
         </div>
     </nav>
+
+    <!-- displaying Django messages -->
+    <div class="container">
+        <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible
+            fade show text-white" id="msg" role="alert">
+            {{ message | safe }}
+            <button type="button" class="btn-close text-white"
+                data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+    </div>
 
     <main class="flex-shrink-0 main-bg">
 

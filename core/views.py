@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.contrib import messages
 from .models import Post, Reply
+from .forms import ReplyForm
 
 # Create your views here.
 class PostList(generic.ListView):
@@ -26,6 +28,23 @@ def conversation(request, slug):
 
     # Get all replies related to the post, ordered by creation date
     replies = Reply.objects.filter(related_post=post).order_by('created_on')
+    reply_count = replies.count()
+
+    # post a reply to the related post 
+    if request.method == "POST":
+        reply_form = ReplyForm(data=request.POST)
+        if reply_form.is_valid():
+            reply = reply_form.save(commit=False)
+            reply.author = request.user
+            reply.related_post = post
+            reply.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Reply submitted'
+            )
+
+
+    reply_form = ReplyForm()
 
     return render(
         request,
@@ -33,6 +52,8 @@ def conversation(request, slug):
         {
             "post": post,
             "replies": replies,
+            "reply_count": reply_count,
+            "reply_form": reply_form,
         },
     )
 

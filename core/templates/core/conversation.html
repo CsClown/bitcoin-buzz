@@ -1,5 +1,7 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 
 <div class="container">
@@ -26,18 +28,51 @@
             </div>
         </div>
     </div>
+    <!-- posting a reply -->
+    <div class="col-md-6 card mb-4 mt-3 mx-auto">
+        <div class="card-body">
+          {% if user.is_authenticated %}
+          <h3>Leave a comment:</h3>
+          <p>Posting as: {{ user.username }}</p>
+          <form id="replyForm" method="post"
+            style="margin-top: 1.3em;">
+            {{ reply_form | crispy }}
+            {% csrf_token %}
+            <button id="submitButton" type="submit"
+              class="btn btn-signup btn-lg">Submit</button>
+          </form>
+          {% else %}
+          <p>Log in to leave a comment</p>
+          {% endif %}
+        </div>
+    </div>
+    <!-- Displaying count of replies -->
+    <div class="row">
+        <div class="col-12">
+        <strong class="text-secondary text-white">
+            <i class="far fa-comments text-white"></i> {{ reply_count }}
+        </strong>
+        </div>
+        <div class="col-12">
+        <hr>
+        </div>
+    </div>
 </div>
+
+
 
 <div class="container">
     <div class="row">
         <div class="col card mb-4  mt-3 left  top">
-            <h3 class="">Replies</h3>
+            <h3 class="mt-3">Replies</h3>
+            <hr>
             {% if replies %}
                 <ul>
                     {% for reply in replies %}
                     <li>
                         <p>{{ reply.content }}</p>
                         <p><small>Reply by {{ reply.author }} on {{ reply.created_on }}</small></p>
+                        <hr>
                     </li>
                     {% endfor %}
                 </ul>
