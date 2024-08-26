@@ -1,3 +1,4 @@
+import re
 from django.db import models
 from django.utils.text import slugify #chatgpt suggestion of auto-slugs
 from django.contrib.auth.models import User
