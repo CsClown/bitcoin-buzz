@@ -1,5 +1,7 @@
 # Bitcoin BUZZ: Bitcoin-Themed Forum
 
+hero picture: unsplash.com
+
 ### External User’s Goal:
  Users can discuss Bitcoin, post topics, comment on posts, and engage in community discussions.
 ### Site Owner’s Goal:

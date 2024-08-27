@@ -8,7 +8,7 @@ from .forms import ReplyForm, PostForm
 
 # Create your views here.
 class PostList(generic.ListView):
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-created_on')
     template_name = "core/index.html"
     paginate_by = 6
 

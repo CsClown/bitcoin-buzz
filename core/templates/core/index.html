@@ -4,39 +4,57 @@
 
 <!-- index.html content starts here -->
 <div class="container-fluid bg-secondary">
-    <div class="row">
+    <div class="row justify-content-center">
+        <!-- Image Container -->
+        <div class="col-12 mt-3 position-relative d-flex justify-content-center">
+            <div class="image-container">
+                <!-- Placeholder for the image -->
+                <img src="static/images/photo-1524673278499-6c651bf78b14-min.jpg" alt="Image description" class="img-fluid w-100">
 
-        <!-- Call to action button -->
-        {% if user.is_authenticated %}
-        <div class="col-12 mt-3 text-end">
-            <a href="{% url 'post_create' %}" class="btn btn-primary">Create New Post</a>
+                <!-- Call to action button centered over the image -->
+                <div class="position-absolute bottom-0 start-50 translate-middle mb-3 text-center">
+                    <h1 class="hero-header glow-highlight">₿e part of the Conversation</h1>
+                    <div class="text-center">
+                        {% if user.is_authenticated %}
+                            <!-- If the user is logged in, link to post creation page -->
+                            <a href="{% url 'post_create' %}" class="btn btn-primary">Create New Post</a>
+                        {% else %}
+                            <!-- If the user is not logged in, link to login page -->
+                            <a href="{% url 'account_login' %}" class="btn btn-primary">Create New Post</a>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+            </div>
         </div>
-        {% endif %}
 
-        <!-- Forum Entries Column -->
-        <div class="col-12 mt-3 left">
+       <!-- Forum Entries Column -->
+        <div class="col-12 mt-3">
             <div class="row">
+                <h1 class="text-center mb-4">Latest Posts</h1>
                 {% for post in post_list %}
                 <div class="col-md-4">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <p>Author: <span class="badge bg-warning text-dark">{{ post.author }}</span></p>
+                            {% if post.topic %}
+                                <p class="text-bold"> -- {{ post.topic }} --</p>
+                            {% endif %}
                             <a href="{% url 'conversation' post.slug %}" class="post-link">
                                 <h2 class="card-title">{{ post.title }}</h2>
-                            
                             <p class=" p-3 rounded border">
                                 {{ post.content }}
                             </p>
                             </a>
+                            <p>Author: <span class="badge bg-warning text-dark">{{ post.author }}</span></p>
                             <hr />
-                            <p class="card-text text-muted h6">{{ post.created_on}}
+                            <p class="card-text text-muted h6">{{ post.created_on|date:"F d, Y H:i"}}
                             </p>
                         </div>
                     </div>
                 </div>
                 {% if forloop.counter|divisibleby:3 %}
             </div>
-            <div class="row">
+             <div class="row">
                 {% endif %}
                 {% endfor %}
 
