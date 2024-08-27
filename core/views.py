@@ -58,12 +58,13 @@ def conversation(request, slug):
         },
     )
 
-def post_delete(request, slug):
+def post_delete(request, slug, post_id):
     """
     view to delete post
     """
 
     post = get_object_or_404(Post, slug=slug)
+
     if post.author == request.user:
         post.delete()
         messages.add_message(request, messages.SUCCESS, 'Post deleted!')

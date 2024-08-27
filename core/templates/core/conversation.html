@@ -26,9 +26,13 @@
                     {{ post.content | safe }}
                 </p>
             </div>
+            {% if user.is_authenticated and post.author == user %}
+                <button class="btn btn-delete"
+                    post_id="{{ post.id }}">Delete</button>
+            {% endif %}
         </div>
     </div>
-    <!-- posting a reply -->
+    <!-- reply form -->
     <div class="col-md-6 card mb-4 mt-3 mx-auto">
         <div class="card-body">
           {% if user.is_authenticated %}
@@ -101,12 +105,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title"
-          id="deleteModalLabel">Delete reply?</h5>
+          id="deleteModalLabel">Delete?</h5>
         <button type="button" class="btn-close"
           data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete your reply?
+        Are you sure you want to delete your content?
         This action cannot be undone.
       </div>
       <div class="modal-footer">
@@ -122,4 +126,5 @@
 {% endblock content %}
 {% block extras %}
 <script src="{% static 'js/replies.js' %}"></script>
+<!-- <script src="{% static 'js/posts.js' %}"></script> -->
 {% endblock %}
