@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .models import Post, Reply
-from .forms import ReplyForm
+from .forms import ReplyForm, PostForm
 
 # Create your views here.
 class PostList(generic.ListView):
@@ -88,3 +89,18 @@ def reply_delete(request, slug, reply_id):
         messages.add_message(request, messages.ERROR, "You can only delete your own reply!")
 
     return HttpResponseRedirect(reverse('conversation', args=[slug]))
+
+@login_required
+def post_create(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            messages.success(request, 'Your post has been created')
+            return redirect('home')
+    else: 
+        form = PostForm()
+    
+    return render(request, 'core/post_form.html', {'form': form})
