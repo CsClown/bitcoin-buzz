@@ -35,3 +35,13 @@ const deleteConfirm = document.getElementById("deleteConfirm");
         deleteModal.show();
     });
 }
+
+// Toggle visibility of the reply form
+document.getElementById("show-reply-form").addEventListener("click", function() {
+    
+    var replyFormContainer = document.getElementById("reply-form-container");
+    if (replyFormContainer.style.display === "none") {
+        replyFormContainer.style.display = "block";
+        this.style.display = "none";  // Hide the "Reply to this Post" button
+    }
+});
