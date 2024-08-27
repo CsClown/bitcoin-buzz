@@ -162,3 +162,19 @@ body {
 .approval {
     color: rgb(212, 136, 158); /* Slightly darker */
 }
+
+.reply {
+    background-color: #e0f7fa; /* Light blue background */
+    border-left: 4px solid #00796b; /* Darker blue-green border */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.user-reply {
+    background-color: #faf2e0; /* Light blue background */
+    border-left: 4px solid #00796b; /* Darker blue-green border */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}

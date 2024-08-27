@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from .models import Post, Reply
 from .forms import ReplyForm
 
@@ -57,3 +58,32 @@ def conversation(request, slug):
         },
     )
 
+def post_delete(request, slug):
+    """
+    view to delete post
+    """
+
+    post = get_object_or_404(Post, slug=slug)
+    if post.author == request.user:
+        post.delete()
+        messages.add_message(request, messages.SUCCESS, 'Post deleted!')
+    else:
+        messages.add_message(request, messages.ERROR, "You can only delete your own posts")
+    return redirect('home')
+
+
+def reply_delete(request, slug, reply_id):
+    """
+    view to delete reply
+    """
+
+    post = get_object_or_404(Post, slug=slug)
+    reply = get_object_or_404(Reply, pk=reply_id)
+
+    if reply.author == request.user:
+        reply.delete()
+        messages.add_message(request, messages.SUCCESS, 'Reply deleted!')
+    else: 
+        messages.add_message(request, messages.ERROR, "You can only delete your own reply!")
+
+    return HttpResponseRedirect(reverse('conversation', args=[slug]))
