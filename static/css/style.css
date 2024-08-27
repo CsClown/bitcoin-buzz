@@ -1,3 +1,8 @@
+body, h1, h2, h3, h4, h5, h6, p, a, span, div, button {
+    font-family: 'Oswald', sans-serif;  
+    letter-spacing: +1px;
+}
+
 body {
     background-color: #F1F3F6; /* Slightly changed */
 }
@@ -9,9 +14,9 @@ a:hover, a:focus, a:active, a:visited, a:link{
 .fa-heart, .fa-heart-crack {
     color: #d35400;
 }
-]
+
 .brand {
-    font-family: 'Montserrat', sans-serif; /* Changed font-family */
+    font-family: 'Oswald', sans-serif; /* Changed font-family */
     font-size: 1.5rem; /* Slightly increased size */
     font-weight: 600; /* Slightly reduced weight */
     color: #ffffff; /* Slightly darker color */
@@ -30,7 +35,7 @@ a:hover, a:focus, a:active, a:visited, a:link{
 }
 
 .dark-bg {
-    background-color: #3A4C5B; /* Slightly darker */
+    background-color: #324d63; /* Slightly darker */
 }
 
 .main-bg {
@@ -112,11 +117,26 @@ a:hover, a:focus, a:active, a:visited, a:link{
     color: #D83C0F; /* Slightly darker red */
 }
 
+.post-card {
+    text-align: center;
+    background-color: #ffffffad;
+}
+
 .post-title {
     margin-top: 8%; /* Adjusted margin */
     margin-left: 6%; /* Adjusted margin */
 }
 
+.post-author {
+
+}
+
+.post-topic {
+    text-transform: uppercase;
+    font-size: smaller;
+    font-weight: bold;
+    font-style: italic;
+}
 .post-subtitle {
     margin-left: 6%; /* Adjusted margin */
     color: #C0C0C0; /* Changed to a solid gray */

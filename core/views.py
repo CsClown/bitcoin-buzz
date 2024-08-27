@@ -3,15 +3,32 @@ from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.db.models import Count
 from .models import Post, Reply
 from .forms import ReplyForm, PostForm
 
-# Create your views here.
+Create your views here.
 class PostList(generic.ListView):
-    queryset = Post.objects.all().order_by('-created_on')
+    queryset = Post.objects.annotate(reply_count=Count('post_replies')).order_by('-created_on')
     template_name = "core/index.html"
     paginate_by = 6
 
+
+# def index(request):
+#     sort_by = request.GET.get('sort', 'latest')
+
+#     if sort_by == 'discussed':
+#         queryset = Post.objects.annotate(reply_count=Count('post_replies')).order_by('-reply_count')
+#     elif sort_by == 'liked':
+#         queryset = Post.objects.annotate(total_likes=Count('likes')).order_by('-total_likes')
+#     else:
+#         queryset = Post.objects.annotate(reply_count=Count('post_replies')).order_by('-created_on')
+
+#     context = {
+#         'post_list': queryset,
+#         'sort_by': sort_by,
+#     }
+#     return render(request, 'core/index.html', context)
 
 def conversation(request, slug):
     """ Display the conversation of the Forum post

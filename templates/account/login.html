@@ -12,14 +12,14 @@
         <div class="col-md-8 mt-3 offset-md-2">
             <h3>{% trans "Sign In" %}</h3>
 
-            <p>{% blocktrans %}Welcome back to the code|star blog. To leave a comment or like a post, please log in. If
+            <p>{% blocktrans %}Welcome back to Bitcoin BUZZ. To leave a comment or like a post, please log in. If
                 you
                 have not created an account yet, then <a class="link" href="{{ signup_url }}">sign up</a>
                 first.{% endblocktrans %}</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
+        <div class="col-md-8 mt-3 offset-md-2 mb-3">
             <form class="login" method="POST" action="{% url 'account_login' %}">
                 {% csrf_token %}
                 {{ form.as_p }}

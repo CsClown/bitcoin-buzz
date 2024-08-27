@@ -3,7 +3,7 @@
 {% block content %}
 
 <!-- index.html content starts here -->
-<div class="container-fluid bg-secondary p-3">
+<div class="container-fluid main-bg p-3">
     <div class="row justify-content-center">
         <!-- Image Container -->
         <div class="col-12 mt-3 position-relative d-flex justify-content-center">
@@ -34,20 +34,22 @@
                 <h1 class="text-center mb-4">Latest Posts</h1>
                 {% for post in post_list %}
                 <div class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4 post-card">
                         <div class="card-body">
                             {% if post.topic %}
-                                <p class="text-bold"> -- {{ post.topic }} --</p>
+                                <p class="text-bold post-topic mb-0"> -- {{ post.topic }} --</p>
                             {% endif %}
                             <a href="{% url 'conversation' post.slug %}" class="post-link">
-                                <h2 class="card-title">{{ post.title }}</h2>
+                                <h2 class="card-title post-title mt-0">{{ post.title }}</h2>
                             <!-- <p class=" p-3 rounded border">
                                 {{ post.content }}
                             </p> -->
                             </a>
-                            <p>Author: <span class="badge bg-warning text-dark">{{ post.author }}</span></p>
-                            <hr />
-                            <i class="far fa-solid fa-heart mb-2"> {{ post.total_likes }}</i>
+                            <p class="post-author">Author: <span class="badge bg-warning text-dark">{{ post.author }}</span></p>
+                            
+                            <span><i class="far fa-solid fa-heart mb-2"> {{ post.total_likes }}</i> | </span>
+                            <span><i class="far fa-comments"></i> {{ post.reply_count }}</span>
+
                             <p class="card-text text-muted h6">{{ post.created_on|date:"F d, Y H:i"}}
                             </p>
                         </div>

@@ -19,7 +19,7 @@
         </div>
         <!-- likes  -->
         <div class="row">
-            <div class="col card mb-4  mt-3 left  top">
+            <div class="col mb-4  mt-3 left  top">
                 
                 {% if user.is_authenticated %}
                     <form action="{% url 'like_post' post.slug %}" method="POST">
@@ -58,11 +58,13 @@
 </div>
 
 <!-- REPLY FORM CONTAINER -->
-<div class="container">
+<div class="container mt-3">
     {% if user.is_authenticated %}
-        <button id="show-reply-form" class="btn btn-primary">Reply to this Post</button>
+        <div class="text-end">
+            <button id="show-reply-form" class="btn btn-primary">Reply to this Post</button>
+        </div>
         <!-- Hidden reply form -->
-        <div class="col-md-6 card mb-4 mt-3 mx-auto" id="reply-form-container" style="display: none;">
+        <div class="col-md-6  mb-4 mt-3 mx-auto" id="reply-form-container" style="display: none;">
             <div class="card-body">
             {% if user.is_authenticated %}
             <h3>Post a reply:</h3>
@@ -99,7 +101,7 @@
                     {% for reply in replies %}
                     <li>
                         <div class="{% if reply.author == user %}user-reply {% else %} reply {% endif %}">
-                            <p>{{ reply.content }}</p>
+                            <p class="text-black">{{ reply.content }}</p>
                             {% if reply.author == user %}
                                 <p><small>Reply by <strong>-- you --</strong> on {{ reply.created_on }}</small></p>
                             {% else %} 
@@ -109,7 +111,7 @@
                                 <button class="btn btn-delete"
                                     reply_id="{{ reply.id }}">Delete</button>
                             {% endif %}
-                            <hr>
+                            
                         </div>
                     </li>
                     {% endfor %}
