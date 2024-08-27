@@ -2,14 +2,6 @@ body {
     background-color: #F1F3F6; /* Slightly changed */
 }
 
-a:hover, a:focus, a:active, a:visited, a:link{
-    text-decoration: none;
-}
-
-.fa-heart, .fa-heart-crack {
-    color: #d35400;
-}
-]
 .brand {
     font-family: 'Montserrat', sans-serif; /* Changed font-family */
     font-size: 1.5rem; /* Slightly increased size */
@@ -34,7 +26,7 @@ a:hover, a:focus, a:active, a:visited, a:link{
 }
 
 .main-bg {
-    background-color: #884f29; /* Changed background color */
+    background-color: #556991; /* Changed background color */
 }
 
 .card {
@@ -122,73 +114,45 @@ a:hover, a:focus, a:active, a:visited, a:link{
     color: #C0C0C0; /* Changed to a solid gray */
 }
 
-.btn-primary {
-    background-color: #e67e22; /* Orange color */
-    color: #FFFFFF; /* White text */
-    border: 1px solid #e67e22; /* Border matches the button color */
-}
-
-.btn-primary:hover,
-.btn-primary:active {
-    background-color: #d35400; /* Darker orange on hover */
-    color: #FFFFFF; /* Keep white text */
-    border-color: #d35400; /* Match border with hover color */
-}
-
 .btn-signup,
 .btn-edit {
-    background-color: #e67e22; /* Orange color */
-    color: #FFFFFF; /* White text */
-    border: 1px solid #e67e22; /* Border matches the button color */
+    background-color: #0C7A7A; /* Slightly darker teal */
+    color: #FAFAFA; /* Slightly lighter text */
 }
 
 .btn-signup:hover,
 .btn-signup:active {
-    background-color: #d35400; /* Darker orange on hover */
-    color: #FFFFFF; /* Keep white text */
-    border-color: #d35400; /* Match border with hover color */
-}
-
-.btn-edit:hover,
-.btn-edit:active {
-    background-color: #d35400; /* Darker orange on hover */
-    color: #FFFFFF; /* Keep white text */
-    border-color: #d35400; /* Match border with hover color */
+    background-color: #F2F2F2; /* Slightly darker background */
+    color: #1DBBBB; /* Adjusted text color */
 }
 
 .link {
-    color: #e67e22; /* Orange color */
-    text-decoration: none; /* Changed to underline */
+    color: #1DBBBB; /* Slightly adjusted color */
+    text-decoration: underline; /* Changed to underline */
 }
 
 .link:hover,
 .link:active {
-    color: #d35400; /* Darker orange on hover */
+    color: #3A4C5B; /* Slightly darker */
     text-decoration: none; /* Changed to no underline */
 }
 
 .btn-like {
-    color: #e67e22; /* Orange color */
-    border: 1px solid #e67e22; /* Orange border */
+    color: #D83C0F; /* Slightly darker */
+    border: 1px solid #D83C0F; /* Added border */
     background: transparent;
-}
-
-.btn-like:hover,
-.btn-like:active {
-    color: #FFFFFF;
-    background: #e67e22; /* Orange background on hover */
-    border: 1px solid #e67e22; /* Keep border consistent */
 }
 
 .btn-delete {
     color: #FFFFFF; /* Adjusted white */
-    background: #e74c3c; /* Orange-red */
+    background: #D83C0F; /* Slightly darker red */
 }
 
-.btn-delete:hover,
-.btn-delete:active {
-    color: #FFFFFF;
-    background: #c0392b; /* Darker orange-red on hover */
+.btn-like:hover,
+.btn-like:active {
+    color: #D83C0F;
+    background: #FFE0E0; /* Added background change on hover */
+    border: 1px solid #D83C0F; /* Ensured border stays */
 }
 
 .faded {

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="container card mt-3">
+    <div class="row g-0 ">
+        <div class="col-md-6 ">
+            <h4 class="post-title">{{ post.title }}</h4>
+            <p class="post-subtitle">{{ post.author }} | {{ post.created_on }}</p>
+        </div>
+        <hr>
+        <div class="card-body">
+            <!-- The post content -->
+            <p class="card-text">
+                {{ post.content | safe }}
+            </p>
+        </div>
+       
+    </div>
+</div>
+
+<div class="container">
+    <!-- reply form -->
+    <div class="col-md-6 card mb-4 mt-3 mx-auto">
+        <div class="card-body">
+          {% if user.is_authenticated %}
+          <h3>Post a reply:</h3>
+          <p>Posting as: {{ user.username }}</p>
+          <form id="replyForm" method="post"
+            style="margin-top: 1.3em;">
+            {{ reply_form | crispy }}
+            {% csrf_token %}
+            <button id="submitButton" type="submit"
+              class="btn btn-signup btn-lg">Submit</button>
+          </form>
+          {% else %}
+          <p>Log in to post a reply</p>
+          {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+{% block extras %}
+<script src="{% static 'js/replies.js' %}"></script>
+{% endblock %}

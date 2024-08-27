@@ -34,6 +34,7 @@ class Post(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True, related_name="topic_posts")
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name="liked_posts", blank=True)
     
     #chat gpt suggestion of auto-slugs with prevention of duplicate slugs 
     def save(self, *args, **kwargs):
@@ -49,6 +50,9 @@ class Post(models.Model):
             self.slug = unique_slug
         super(Post, self).save(*args, **kwargs)
 
+    def total_likes(self):
+        return self.likes.count()
+        
     def __str__(self):
         return self.title
 
@@ -58,6 +62,8 @@ class Reply(models.Model):
     related_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_replies")
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+    # for nested replies
+    parent_reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
 
     def __str__(self):
         return f'"{self.related_post}" - reply from: {self.author}'

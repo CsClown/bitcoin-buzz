@@ -104,3 +104,12 @@ def post_create(request):
         form = PostForm()
     
     return render(request, 'core/post_form.html', {'form': form})
+
+@login_required
+def like_post(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return redirect('conversation', slug=slug)
