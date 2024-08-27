@@ -7,7 +7,7 @@ from django.db.models import Count
 from .models import Post, Reply
 from .forms import ReplyForm, PostForm
 
-Create your views here.
+#Create your views here.
 class PostList(generic.ListView):
     queryset = Post.objects.annotate(reply_count=Count('post_replies')).order_by('-created_on')
     template_name = "core/index.html"
