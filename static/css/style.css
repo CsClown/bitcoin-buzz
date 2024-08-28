@@ -127,10 +127,6 @@ a:hover, a:focus, a:active, a:visited, a:link{
     margin-left: 6%; /* Adjusted margin */
 }
 
-.post-author {
-
-}
-
 .post-topic {
     text-transform: uppercase;
     font-size: smaller;
@@ -147,6 +143,20 @@ a:hover, a:focus, a:active, a:visited, a:link{
     color: #FFFFFF; /* White text */
     border: 1px solid #e67e22; /* Border matches the button color */
 }
+.btn-sort {
+    font-size: larger;
+    text-transform: uppercase;
+}
+
+.btn-sort:hover {
+    background-color: #ffffff46;
+}
+
+.active-sort {
+    text-decoration: underline;
+    background-color: #ffffff9c;
+}
+
 
 .btn-primary:hover,
 .btn-primary:active {

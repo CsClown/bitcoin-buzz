@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db.models import Count
-from .models import Post, Reply
+from .models import Post, Reply, Topic
 from .forms import ReplyForm, PostForm
 
 #Create your views here.
@@ -31,7 +31,27 @@ class PostList(generic.ListView):
         context['sort_by'] = self.request.GET.get('sort', 'latest')
         return context
 
+# View to display all topics
+class TopicList(generic.ListView):
+    model = Topic
+    template_name = "core/topic_list.html"
+    context_object_name = "topics"
 
+# View to display posts related to a specific topic
+class TopicPostList(generic.ListView):
+    model = Post
+    template_name = "core/topic_posts.html"
+    context_object_name = "post_list"
+
+    def get_queryset(self):
+        # Filter posts by topic based on the topic ID in the URL
+        topic = get_object_or_404(Topic, pk=self.kwargs['pk'])
+        return Post.objects.filter(topic=topic)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['topic'] = get_object_or_404(Topic, pk=self.kwargs['pk'])
+        return context
 
 
 def conversation(request, slug):

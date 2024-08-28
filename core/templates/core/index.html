@@ -32,12 +32,15 @@
        <!-- Forum Entries Column -->
         <div class="col-12 mt-3">
             <div class="row">
+
                 <!-- Sorting Buttons -->
                 <div class="d-flex justify-content-center mb-4">
-                    <a href="?sort=latest" class="btn btn-primary me-2 {% if sort_by == 'latest' %}active{% endif %}">Latest Posts</a>
-                    <a href="?sort=discussed" class="btn btn-primary me-2 {% if sort_by == 'discussed' %}active{% endif %}">Most Discussed</a>
-                    <a href="?sort=liked" class="btn btn-primary {% if sort_by == 'liked' %}active{% endif %}">Most Liked</a>
+                    <a href="?sort=latest" class="btn btn-sort me-2 {% if sort_by == 'latest' %}active-sort{% endif %}">Latest Posts</a>
+                    <a href="?sort=discussed" class="btn btn-sort me-2 {% if sort_by == 'discussed' %}active-sort{% endif %}">Most Discussed</a>
+                    <a href="?sort=liked" class="btn btn-sort {% if sort_by == 'liked' %}active-sort{% endif %}">Most Liked</a>
+                    <a href="{% url 'topic_list' %}" class="btn btn-sort">Browse Topics</a>
                 </div>
+                               
                 <!-- <h1 class="text-center mb-4">Latest Posts</h1> -->
                 {% for post in post_list %}
                 <div class="col-md-4">
