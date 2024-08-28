@@ -9,26 +9,30 @@ from .forms import ReplyForm, PostForm
 
 #Create your views here.
 class PostList(generic.ListView):
-    queryset = Post.objects.annotate(reply_count=Count('post_replies')).order_by('-created_on')
+    model = Post
     template_name = "core/index.html"
+    context_object_name = "post_list"
     paginate_by = 6
 
+    def get_queryset(self):
+        sort_by = self.request.GET.get('sort', 'latest')
 
-# def index(request):
-#     sort_by = request.GET.get('sort', 'latest')
+        if sort_by == 'discussed':
+            queryset = Post.objects.annotate(reply_count=Count('post_replies')).order_by('-reply_count')
+        elif sort_by == 'liked':
+            queryset = Post.objects.annotate(total_likes=Count('likes')).order_by('-total_likes')
+        else:
+            queryset = Post.objects.annotate(reply_count=Count('post_replies')).order_by('-created_on')
 
-#     if sort_by == 'discussed':
-#         queryset = Post.objects.annotate(reply_count=Count('post_replies')).order_by('-reply_count')
-#     elif sort_by == 'liked':
-#         queryset = Post.objects.annotate(total_likes=Count('likes')).order_by('-total_likes')
-#     else:
-#         queryset = Post.objects.annotate(reply_count=Count('post_replies')).order_by('-created_on')
+        return queryset
 
-#     context = {
-#         'post_list': queryset,
-#         'sort_by': sort_by,
-#     }
-#     return render(request, 'core/index.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sort_by'] = self.request.GET.get('sort', 'latest')
+        return context
+
+
+
 
 def conversation(request, slug):
     """ Display the conversation of the Forum post
