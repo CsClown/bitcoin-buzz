@@ -8,7 +8,12 @@
     <div class="row g-0 ">
         <div class="col-md-6 ">
             <h4 class="post-title">{{ post.title }}</h4>
-            <p class="post-subtitle">{{ post.author }} | {{ post.created_on }}</p>
+            <a href="{% url 'user_profile' post.author.username %}">
+                <span class="post-subtitle badge bg-warning text-dark mb-2">
+                    {{ post.author }}
+                </span>
+            </a>
+            <span class="post-subtitle m-0">| {{ post.created_on }}</span>
         </div>
         <hr>
         <div class="card-body">
@@ -100,16 +105,7 @@
                     <div class="{% if reply.author == user %}user-reply {% else %} reply {% endif %}">
                         <p id="reply{{reply.id}}" class="text-black">{{ reply.content }}</p>
                         <hr>
-                        {% if reply.author == user %}
-                        <p>
-                            Reply by
-                            <a href="{% url 'user_profile' username=reply.author.username %}">
-                                <span class="badge bg-warning text-dark">
-                                    -- you --
-                                </span>
-                            </a> on {{ reply.created_on }}
-                        </p>
-                        {% else %}
+                        
                         <p>
                             Reply by
                             <a href="{% url 'user_profile' username=reply.author.username %}">
@@ -119,7 +115,7 @@
                             </a>
                             on {{ reply.created_on }}
                         </p>
-                        {% endif %}
+                        
                         {% if user.is_authenticated and reply.author == user %}
                         <p class="text-muted mt-3"> do you want to edit or delete your reply?</p>
                         <button class="btn btn-delete" reply_id="{{ reply.id }}">Delete</button>
