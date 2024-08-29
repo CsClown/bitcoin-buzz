@@ -14,7 +14,7 @@
                 </div>
             </div>
             {% if user.is_authenticated and request.user == profile.user %}
-            <a href="{% url 'edit_profile' %}">class="btn btn-edit">Edit Profile</a>
+            <a href="{% url 'edit_profile' %}" class="btn btn-edit">Edit Profile</a>
             {% endif %}
         </div>
 
