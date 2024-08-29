@@ -33,3 +33,36 @@
 | **Delete Post**                 | Click "Delete" on own post                            | Post is removed from the forum and user is redirected to the homepage with a success message |
 
 
+### Responsiveness Test
+The responsive design tests were carried out manually with [Google Chrome DevTools](https://developer.chrome.com/docs/devtools/) and [Responsive Design Checker](https://www.responsivedesignchecker.com/).
+
+| Desktop    | Display <1280px       | Display >1280px    |
+|------------|-----------------------|--------------------|
+| Render     | pass                  | pass               |
+| Images     | pass                  | pass               |
+| Links      | pass                  | pass               |
+
+| Tablet     | Samsung Galaxy Tab 10 | iPad Mini | iPad Pro |
+|------------|-----------------------|-----------|----------|
+| Render     | pass                  |   pass    | pass     |
+| Images     | pass                  |   pass    | pass     |
+
+| Phone      | Galaxy S5/S6/S7       | iPhone 3/4/4S      | iPhone 14 Pro Max    |
+|------------|-----------------------|--------------------|----------------------|
+| Render     | pass                  | pass               | pass      | pass     |
+| Images     | pass                  | pass               | pass      | pass     |
+| Links      | pass                  | pass               | pass      | pass     |
+
+### Browser Compatibility
+* Google Chrome (version 127.0.6533.120)
+* Mozilla Firefox (version 129.0.2)
+* Apple Safari (version 16.6)
+
+### Lighthouse
+
+<details>
+<summary>Landing Page</summary>
+
+![Lighthouse Bitcoin BUZZ](readme/assets/images/lighthouse.png)
+</details>
+

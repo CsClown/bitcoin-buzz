@@ -488,6 +488,8 @@ More information on Creating and Managing repositories can be found [here](https
   * CodeInstitute Codestar Blog (LMS walkthrough) as starting point for my project. Modified and added to the code to my needs
   * the deployment section was beautifully done by https://github.com/Pramilashanmugam and found its way into my readme
   * fixtures for the database entries entirely created by chatGPT. thank you for the awesome usernames.
+  * Hero section Image from (#https://unsplash.com)
+
 
 # Acknowledgements
 This site was created for Portfolio Project #4 (Full-Stack Tolkin) - Diploma in Full Stack Software Development Diploma at the [Code Institute](https://www.codeinstitute.net). 
