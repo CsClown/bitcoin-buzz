@@ -50,9 +50,8 @@
 <div class="container">
     
     {% if user.is_authenticated and post.author == user %}
-        <p class="text-muted mt-3"> do you want to edit or delete your post?</p>
+        <p class="text-muted mt-3"> do you want to delete your post?</p>
         <button class="btn btn-delete" post_id="{{ post.id }}">Delete</button>
-        <button class="btn btn-edit" post_id="{{ post.id }}">Edit</button>
     {% endif %}
     
     

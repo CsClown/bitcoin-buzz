@@ -4,10 +4,20 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db.models import Count
-from .models import Post, Reply, Topic
-from .forms import ReplyForm, PostForm
+from .models import Post, Reply, Topic, UserProfile
+from django.contrib.auth.models import User
+from .forms import ReplyForm, PostForm, UserProfileForm
 
-#Create your views here.
+def user_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = get_object_or_404(UserProfile, user=user)
+    posts = Post.objects.filter(author=user).annotate(reply_count=Count('post_replies')).order_by('-created_on')
+    
+    return render(request, 'core/user_profile.html', {
+        'profile': profile,
+        'posts': posts,
+    })
+
 class PostList(generic.ListView):
     model = Post
     template_name = "core/index.html"
@@ -178,3 +188,17 @@ def reply_edit(request, slug, reply_id):
         else: messages.add_message(request, messages.ERROR, 'Error updating Reply!')
 
     return redirect('conversation', slug=slug)
+
+@login_required
+def edit_profile(request):
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile', username=request.user.username)
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    return render(request, 'core/edit_profile.html', {'form': form})

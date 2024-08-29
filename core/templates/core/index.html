@@ -55,7 +55,13 @@
                                 {{ post.content }}
                             </p> -->
                             </a>
-                            <p class="post-author">Author: <span class="badge bg-warning text-dark">{{ post.author }}</span></p>
+                            <p class="post-author">Author: 
+                                <a href="{% url 'user_profile' post.author.username %}">
+                                    <span class="badge bg-warning text-dark">
+                                        {{ post.author }}
+                                    </span>
+                                </a>
+                            </p>
                             
                             <span><i class="far fa-solid fa-heart mb-2"> {{ post.total_likes }}</i> | </span>
                             <span><i class="far fa-comments"></i> {{ post.reply_count }}</span>

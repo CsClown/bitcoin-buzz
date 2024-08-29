@@ -11,5 +11,7 @@ urlpatterns =[
     path('<slug:slug>/delete_reply/<int:reply_id>', core_views.reply_delete, name='reply_delete'),
     path('<slug:slug>/delete_post/<int:post_id>', core_views.post_delete, name='post_delete'),
     path('post/<slug:slug>/like/', core_views.like_post, name='like_post'),
+    path('profile/edit/', core_views.edit_profile, name='edit_profile'),
+    path('profile/<str:username>/', core_views.user_profile, name='user_profile'),
     
 ]

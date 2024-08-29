@@ -47,6 +47,9 @@
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == logout_url %}active{% endif %} text-white" aria-current="page" href="{% url 'account_logout' %}">Logout</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" aria-current="page" href="{% url 'user_profile' username=request.user.username %}">Profile</a>
+                        </li>
                         {% else %}
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == signup_url %}active{% endif %} text-white" aria-current="page"
@@ -62,7 +65,11 @@
                 <!-- show logged in status on the right -->
                 <span class="navbar-text text-white">
                     {% if user.is_authenticated %}
-                        Logged in as {{ user.username }}
+                        <a href="{% url 'user_profile' user.username %}">
+                            <span class="navbar-text text-white">
+                                Logged in as {{ user.username }}
+                            </span>
+                        </a>
                     {% else %}
                         Not logged in
                     {% endif %}

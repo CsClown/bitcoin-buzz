@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h3>{{ profile.user.username }}</h3>
+                    <p><strong>Location:</strong> {{ profile.location }}</p>
+                    <p><strong>Bio:</strong> {{ profile.bio }}</p>
+                </div>
+            </div>
+            {% if user.is_authenticated and request.user == profile.user %}
+        <a href="{% url 'edit_profile' %}"><button class="btn btn-edit">Edit Profile</button></a>
+    {% endif %}
+        </div>
+        
+    </div>
+
+    
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Posts by {{ profile.user.username }}</h1>
+            
+            <ul class="list-group">
+                {% for post in posts %}
+                <li class="list-group-item text-center mb-1">
+                    <a href="{% url 'conversation' post.slug %}" class="d-block text-dark">
+                        <h4 class="mb-1">{{ post.title }}</h4>
+                    </a>
+                    <span><i class="far fa-solid fa-heart mb-2"> {{ post.total_likes }}</i> | </span>
+                    <span><i class="far fa-comments"></i> {{ post.reply_count }}</span>
+                    <p class="text-muted mb-0">{{ post.created_on|date:"F d, Y" }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

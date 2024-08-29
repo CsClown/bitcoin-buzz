@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.db.models import Count
 from .models import Post, Reply, Topic
-from .forms import ReplyForm, PostForm
+from .forms import ReplyForm, PostForm, UserProfileForm
 
 #Create your views here.
 class PostList(generic.ListView):
