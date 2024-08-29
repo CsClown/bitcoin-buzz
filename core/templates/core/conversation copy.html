@@ -65,17 +65,21 @@
             <button id="show-reply-form" class="btn btn-primary">Reply to this Post</button>
         </div>
         <!-- Hidden reply form -->
-        <div id="reply-form-container" class="col-md-6 mb-4 mt-3 mx-auto" style="display: none;">
+        <div class="col-md-6  mb-4 mt-3 mx-auto" id="reply-form-container" style="display: none;">
             <div class="card-body">
-                <h3 id="form-title">Post a reply:</h3>
-                <p>Posting as: {{ user.username }}</p>
-                <form id="replyForm" method="post" action="{% url 'conversation' slug=post.slug %}" style="margin-top: 1.3em;">
-                    {{ reply_form|crispy }}
-                    {% csrf_token %}
-                    <!-- Hidden input to store reply ID for editing -->
-                    <input type="hidden" id="reply_id_input" name="reply_id" value="">
-                    <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
-                </form>
+            {% if user.is_authenticated %}
+            <h3>Post a reply:</h3>
+            <p>Posting as: {{ user.username }}</p>
+            <form id="replyForm" method="post" action="{% url 'conversation' slug=post.slug %}"
+                style="margin-top: 1.3em;">
+                {{ reply_form | crispy }}
+                {% csrf_token %}
+                <button id="submitButton" type="submit"
+                class="btn btn-signup btn-lg">Submit</button>
+            </form>
+            {% else %}
+            <p>Log in to post a reply</p>
+            {% endif %}
             </div>
         </div>
     {% else %}
@@ -98,7 +102,7 @@
                     {% for reply in replies %}
                     <li>
                         <div class="{% if reply.author == user %}user-reply {% else %} reply {% endif %}">
-                            <p id="reply{{reply.id}}" class="text-black">{{ reply.content }}</p>
+                            <p class="text-black">{{ reply.content }}</p>
                             {% if reply.author == user %}
                                 <p><small>Reply by <strong>-- you --</strong> on {{ reply.created_on }}</small></p>
                             {% else %} 

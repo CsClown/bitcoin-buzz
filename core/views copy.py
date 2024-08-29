@@ -55,41 +55,39 @@ class TopicPostList(generic.ListView):
 
 
 def conversation(request, slug):
+    """ Display the conversation of the Forum post
+    **Context**
+
+    ``post``
+        An instance of :model: `core.post`
+
+    **Template:**
+
+    :template:  `core/conversation.html`
+    """
+
+    # Get the post by slug
     post = get_object_or_404(Post, slug=slug)
-    replies = Reply.objects.filter(related_post=post).order_by('-created_on')
+
+    # Get all replies related to the post, ordered by creation date
+    replies = Reply.objects.filter(related_post=post).order_by('created_on')
     reply_count = replies.count()
 
-    reply_form = ReplyForm()
-
+    # post a reply to the related post 
     if request.method == "POST":
-        reply_id = request.POST.get('reply_id')
-        
-        if reply_id:  # This handles the edit reply form
-            try:
-                reply = Reply.objects.get(pk=reply_id)
-                if reply.author == request.user:  # Ensure that only the author can edit the reply
-                    reply_form = ReplyForm(data=request.POST, instance=reply)
-                    if reply_form.is_valid():
-                        reply_form.save()
-                        messages.success(request, 'Reply updated successfully.')
-                    else:
-                        messages.error(request, 'Failed to update reply.')
-                else:
-                    messages.error(request, 'You are not allowed to edit this reply.')
-            except Reply.DoesNotExist:
-                messages.error(request, 'Reply does not exist.')
-            return redirect('conversation', slug=slug)
-        else:  # This handles creating a new reply
-            reply_form = ReplyForm(data=request.POST)
-            if reply_form.is_valid():
-                reply = reply_form.save(commit=False)
-                reply.author = request.user
-                reply.related_post = post
-                reply.save()
-                messages.success(request, 'Reply submitted successfully.')
-            else:
-                messages.error(request, 'Failed to submit reply.')
-            return redirect('conversation', slug=slug)
+        reply_form = ReplyForm(data=request.POST)
+        if reply_form.is_valid():
+            reply = reply_form.save(commit=False)
+            reply.author = request.user
+            reply.related_post = post
+            reply.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Reply submitted'
+            )
+
+
+    reply_form = ReplyForm()
 
     return render(
         request,
@@ -101,8 +99,6 @@ def conversation(request, slug):
             "reply_form": reply_form,
         },
     )
-
-
 
 def post_delete(request, slug, post_id):
     """
@@ -119,6 +115,24 @@ def post_delete(request, slug, post_id):
     return redirect('home')
 
 
+def reply_edit(request, slug, reply_id):
+    """
+    view to edit a reply
+    """
+    if request.method == "POST":
+        post = get_object_or_404(Post, slug=slug)
+        reply = get_object_or_404(Reply, pk=reply_id)
+
+        reply_form = ReplyForm(data=request.POST, instance=reply)
+
+        if reply_form.is_valid() and reply.author == request.user:
+            reply = reply_form.save(commit=False)
+            reply.post = post
+            reply.save()
+            messages.add_message(request, messages.SUCCESS, 'Reply Updated!')
+        else: messages.add_message(request, messages.ERROR, 'Error updating Reply!')
+
+    return redirect('conversation', slug=slug)
 
 def reply_delete(request, slug, reply_id):
     """
@@ -158,23 +172,4 @@ def like_post(request, slug):
         post.likes.remove(request.user)
     else:
         post.likes.add(request.user)
-    return redirect('conversation', slug=slug)
-
-def reply_edit(request, slug, reply_id):
-    """
-    view to edit a reply
-    """
-    if request.method == "POST":
-        post = get_object_or_404(Post, slug=slug)
-        reply = get_object_or_404(Reply, pk=reply_id)
-
-        reply_form = ReplyForm(data=request.POST, instance=reply)
-
-        if reply_form.is_valid() and reply.author == request.user:
-            reply = reply_form.save(commit=False)
-            reply.post = post
-            reply.save()
-            messages.add_message(request, messages.SUCCESS, 'Reply Updated!')
-        else: messages.add_message(request, messages.ERROR, 'Error updating Reply!')
-
     return redirect('conversation', slug=slug)

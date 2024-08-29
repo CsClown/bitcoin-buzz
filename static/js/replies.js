@@ -1,6 +1,48 @@
+const editButtons = document.getElementsByClassName("btn-edit");
+const replyFormContainer = document.getElementById("reply-form-container");
+const replyForm = document.getElementById("replyForm");
+const replyText = document.getElementById("id_content");  // Assuming 'id_content' is the ID for the reply content textarea
+const replyIdInput = document.getElementById("reply_id_input");
+const submitButton = document.getElementById("submitButton");
+const formTitle = document.getElementById("form-title");
 const deleteButtons = document.getElementsByClassName("btn-delete");
 const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
 const deleteConfirm = document.getElementById("deleteConfirm");
+
+for (let button of editButtons) {
+    button.addEventListener("click", (e) => {
+        let replyId = e.target.getAttribute("reply_id");
+        let replyContent = document.getElementById(`reply${replyId}`).innerText;
+
+        // Populate the form with the reply content and ID
+        replyText.value = replyContent;
+        replyIdInput.value = replyId;
+
+        // Update the form title and submit button text
+        formTitle.textContent = "Edit your reply:";
+        submitButton.innerText = "Update";
+
+        // Show the reply form
+        replyFormContainer.style.display = "block";
+        
+        document.getElementById("reply-form-container").scrollIntoView({
+            behavior: 'smooth', // This makes the scrolling smooth
+            block: 'start'      // This aligns the element to the top of the view
+        });
+    });
+}
+
+document.getElementById("show-reply-form").addEventListener("click", function () {
+    // Reset the form for creating a new reply
+    replyForm.reset();
+    replyIdInput.value = "";
+    formTitle.textContent = "Post a reply:";
+    submitButton.innerText = "Submit";
+    
+    replyFormContainer.style.display = "block";
+});
+
+
 
 /**
 * Initializes deletion functionality for the provided delete buttons.
@@ -36,12 +78,3 @@ const deleteConfirm = document.getElementById("deleteConfirm");
     });
 }
 
-// Toggle visibility of the reply form
-document.getElementById("show-reply-form").addEventListener("click", function() {
-    
-    var replyFormContainer = document.getElementById("reply-form-container");
-    if (replyFormContainer.style.display === "none") {
-        replyFormContainer.style.display = "block";
-        this.style.display = "none";  // Hide the "Reply to this Post" button
-    }
-});
