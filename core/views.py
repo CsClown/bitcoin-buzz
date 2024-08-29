@@ -22,7 +22,7 @@ class PostList(generic.ListView):
     model = Post
     template_name = "core/index.html"
     context_object_name = "post_list"
-    paginate_by = 6
+    paginate_by = 9
 
     def get_queryset(self):
         sort_by = self.request.GET.get('sort', 'latest')
@@ -66,7 +66,7 @@ class TopicPostList(generic.ListView):
 
 def conversation(request, slug):
     post = get_object_or_404(Post, slug=slug)
-    replies = Reply.objects.filter(related_post=post).order_by('-created_on')
+    replies = Reply.objects.filter(related_post=post).order_by('created_on')
     reply_count = replies.count()
 
     reply_form = ReplyForm()

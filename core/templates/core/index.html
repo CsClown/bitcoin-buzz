@@ -37,7 +37,7 @@
                 <div class="d-flex justify-content-center mb-4">
                     <a href="?sort=latest" class="btn btn-sort me-2 {% if sort_by == 'latest' %}active-sort{% endif %}">Latest Posts</a>
                     <a href="?sort=discussed" class="btn btn-sort me-2 {% if sort_by == 'discussed' %}active-sort{% endif %}">Most Discussed</a>
-                    <a href="?sort=liked" class="btn btn-sort {% if sort_by == 'liked' %}active-sort{% endif %}">Most Liked</a>
+                    <a href="?sort=liked" class="btn btn-sort me-2 {% if sort_by == 'liked' %}active-sort{% endif %}">Most Liked</a>
                     <a href="{% url 'topic_list' %}" class="btn btn-sort">Browse Topics</a>
                 </div>
                                
