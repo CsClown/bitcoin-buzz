@@ -155,11 +155,12 @@ def post_create(request):
             post.author = request.user
             post.save()
             messages.success(request, 'Your post has been created')
-            return redirect('home')
+            return redirect('conversation', slug=post.slug)
     else: 
         form = PostForm()
     
     return render(request, 'core/post_form.html', {'form': form})
+    
 
 @login_required
 def like_post(request, slug):

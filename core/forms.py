@@ -1,7 +1,6 @@
 from .models import Reply, Post, UserProfile
 from django import forms
 
-
 class ReplyForm(forms.ModelForm):
     class Meta:
         model = Reply

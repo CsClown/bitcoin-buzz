@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-
-
 {% block content %}
 
 <!-- index.html content starts here -->
 <div class="container-fluid main-bg p-3">
     <div class="row justify-content-center">
+
         <!-- Image Container -->
         <div class="col-12 mt-3 position-relative d-flex justify-content-center">
             <div class="image-container">
+
                 <!-- Hero image -->
                 <img src="static/images/bitcoin_woman.jpg" alt="Bitcoin woman" class="img-fluid w-100">
 
@@ -17,55 +17,55 @@
                     <h1 class="hero-header glow-highlight">₿e part of the Conversation</h1>
                     <div class="text-center">
                         {% if user.is_authenticated %}
-                            <!-- If the user is logged in, link to post creation page -->
-                            <a href="{% url 'post_create' %}" class="btn btn-primary">Create New Post</a>
+
+                        <!-- If the user is logged in, link to post creation page -->
+                        <a href="{% url 'post_create' %}" class="btn btn-primary">Create New Post</a>
                         {% else %}
-                            <!-- If the user is not logged in, link to login page -->
-                            <a href="{% url 'account_login' %}" class="btn btn-primary">Create New Post</a>
+
+                        <!-- If the user is not logged in, link to login page -->
+                        <a href="{% url 'account_login' %}" class="btn btn-primary">Create New Post</a>
                         {% endif %}
                     </div>
-                    
                 </div>
             </div>
         </div>
 
-       <!-- Forum Entries Column -->
+        <!-- Forum Entries Column -->
         <div class="col-12 mt-4">
             <div class="row justify-content-center">
 
                 <!-- Sorting Buttons -->
                 <div class="d-flex justify-content-center mb-4">
-                    <a href="?sort=latest" class="btn btn-sort me-2 {% if sort_by == 'latest' %}active-sort{% endif %}">Latest Posts</a>
-                    <a href="?sort=discussed" class="btn btn-sort me-2 {% if sort_by == 'discussed' %}active-sort{% endif %}">Most Discussed</a>
-                    <a href="?sort=liked" class="btn btn-sort me-2 {% if sort_by == 'liked' %}active-sort{% endif %}">Most Liked</a>
+                    <a href="?sort=latest"
+                        class="btn btn-sort me-2 {% if sort_by == 'latest' %}active-sort{% endif %}">Latest Posts</a>
+                    <a href="?sort=discussed"
+                        class="btn btn-sort me-2 {% if sort_by == 'discussed' %}active-sort{% endif %}">Most
+                        Discussed</a>
+                    <a href="?sort=liked"
+                        class="btn btn-sort me-2 {% if sort_by == 'liked' %}active-sort{% endif %}">Most Liked</a>
                     <a href="{% url 'topic_list' %}" class="btn btn-sort">Browse Topics</a>
                 </div>
-                               
+
                 <!-- <h1 class="text-center mb-4">Latest Posts</h1> -->
                 {% for post in post_list %}
                 <div class="col-md-4 col-lg-3">
                     <div class="card mb-4 post-card">
                         <div class="card-body">
                             {% if post.topic %}
-                                <p class="text-bold post-topic mb-0"> -- {{ post.topic }} --</p>
+                            <p class="text-bold post-topic mb-0"> -- {{ post.topic }} --</p>
                             {% endif %}
                             <a href="{% url 'conversation' post.slug %}" class="post-link">
                                 <h2 class="card-title post-title mt-0">{{ post.title }}</h2>
-                            <!-- <p class=" p-3 rounded border">
-                                {{ post.content }}
-                            </p> -->
                             </a>
-                            <p class="post-author">Author: 
+                            <p class="post-author">Author:
                                 <a href="{% url 'user_profile' post.author.username %}">
                                     <span class="badge bg-warning text-dark">
                                         {{ post.author }}
                                     </span>
                                 </a>
                             </p>
-                            
                             <span><i class="far fa-solid fa-heart mb-2"> {{ post.total_likes }}</i> | </span>
                             <span><i class="far fa-comments"></i> {{ post.reply_count }}</span>
-
                             <p class="card-text text-muted h6">{{ post.created_on|date:"F d, Y H:i"}}
                             </p>
                         </div>
@@ -73,10 +73,9 @@
                 </div>
                 {% if forloop.counter|divisibleby:3 %}
             </div>
-             <div class="row justify-content-center">
+            <div class="row justify-content-center">
                 {% endif %}
                 {% endfor %}
-
             </div>
         </div>
     </div>
@@ -87,39 +86,36 @@
         <ul class="pagination justify-content-center">
 
             {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{ sort_by }}" aria-label="Previous">
-                        &laquo; Previous
-                    </a>
-                </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&sort={{ sort_by }}"
+                    aria-label="Previous">
+                    &laquo; Previous
+                </a>
+            </li>
             {% endif %}
 
             {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link">{{ num }}</span>
-                    </li>
-                {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ num }}&sort={{ sort_by }}">{{ num }}</a>
-                    </li>
-                {% endif %}
+            {% if page_obj.number == num %}
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">{{ num }}</span>
+            </li>
+            {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ num }}&sort={{ sort_by }}">{{ num }}</a>
+            </li>
+            {% endif %}
             {% endfor %}
 
             {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}&sort={{ sort_by }}" aria-label="Next">
-                        Next &raquo;
-                    </a>
-                </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}&sort={{ sort_by }}" aria-label="Next">
+                    Next &raquo;
+                </a>
+            </li>
             {% endif %}
-
         </ul>
     </nav>
     {% endif %}
-
-    
 </div>
 
-<!-- index.html content ends here -->
 {% endblock %}

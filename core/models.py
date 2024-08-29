@@ -1,10 +1,7 @@
 import re
 from django.db import models
-from django.utils.text import slugify #chatgpt suggestion of auto-slugs
+from django.utils.text import slugify
 from django.contrib.auth.models import User
-
-
-# Create your models here.
 
 ##  TOPIC ##
 class Topic(models.Model):
@@ -26,10 +23,11 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name="liked_posts", blank=True)
     
-    #chat gpt suggestion of auto-slugs with prevention of duplicate slugs 
+    # automated slug generation with prevention of duplicate slugs 
     def save(self, *args, **kwargs):
         if not self.slug:
             slug = slugify(self.title)
+
             # Remove any characters that are not alphanumeric, hyphens, or underscores
             slug = re.sub(r'[^a-zA-Z0-9_-]', '-', slug)
             unique_slug = slug
@@ -54,8 +52,6 @@ class Reply(models.Model):
     related_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_replies")
     content = models.TextField()
     created_on = models.DateTimeField(auto_now=True)
-    # for nested replies
-    parent_reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
 
     def __str__(self):
         return f'"{self.related_post}" - reply from: {self.author}'
@@ -65,9 +61,6 @@ class Reply(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     bio = models.TextField(blank=True)
-    #posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="user_posts")
-
-    # profile_picture = models.ImageField(upload_to='profile_pics/', blank=True)
     location = models.CharField(max_length=100, blank=True)
 
     def __str__(self):

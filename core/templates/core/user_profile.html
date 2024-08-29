@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-
 {% block content %}
 {% load static %}
 
+<!-- profile card -->
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -14,18 +14,17 @@
                 </div>
             </div>
             {% if user.is_authenticated and request.user == profile.user %}
-        <a href="{% url 'edit_profile' %}"><button class="btn btn-edit">Edit Profile</button></a>
-    {% endif %}
+            <a href="{% url 'edit_profile' %}"><button class="btn btn-edit">Edit Profile</button></a>
+            {% endif %}
         </div>
-        
+
     </div>
 
-    
-
+    <!-- list of post -->
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h1 class="text-center mb-4">Posts by {{ profile.user.username }}</h1>
-            
+
             <ul class="list-group">
                 {% for post in posts %}
                 <li class="list-group-item text-center mb-1">

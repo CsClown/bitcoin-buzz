@@ -20,27 +20,27 @@
         <!-- likes  -->
         <div class="row">
             <div class="col mb-4  mt-3 left  top">
-                
+
                 {% if user.is_authenticated %}
-                    <form action="{% url 'like_post' post.slug %}" method="POST">
-                        {% csrf_token %}
-                        
-                        {% if user in post.likes.all %}
-                            <a href="{% url 'like_post' post.slug %}" class="text-primary">
-                                <i class="fa-solid fa-heart-crack"></i>
-                            </a>
-                        {% else %}
-                            <a href="{% url 'like_post' post.slug %}" class="text-primary">
-                                <i class="fa-solid fa-heart"></i>
-                            </a>
-                        {% endif %}
-                        <span>{{ post.total_likes }}</span>
-                    </form>
+                <form action="{% url 'like_post' post.slug %}" method="POST">
+                    {% csrf_token %}
+
+                    {% if user in post.likes.all %}
+                    <a href="{% url 'like_post' post.slug %}" class="text-primary">
+                        <i class="fa-solid fa-heart-crack"></i>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'like_post' post.slug %}" class="text-primary">
+                        <i class="fa-solid fa-heart"></i>
+                    </a>
+                    {% endif %}
+                    <span>{{ post.total_likes }}</span>
+                </form>
                 {% else %}
                 <p><i class="fa-solid fa-heart"></i> {{ post.total_likes }}</p>
                 {% endif %}
-                
-                
+
+
             </div>
         </div>
     </div>
@@ -48,37 +48,38 @@
 
 
 <div class="container">
-    
+
     {% if user.is_authenticated and post.author == user %}
-        <p class="text-muted mt-3"> do you want to delete your post?</p>
-        <button class="btn btn-delete" post_id="{{ post.id }}">Delete</button>
+    <p class="text-muted mt-3"> do you want to delete your post?</p>
+    <button class="btn btn-delete" post_id="{{ post.id }}">Delete</button>
     {% endif %}
-    
-    
+
+
 </div>
 
 <!-- REPLY FORM CONTAINER -->
 <div class="container mt-3">
     {% if user.is_authenticated %}
-        <div class="text-end">
-            <button id="show-reply-form" class="btn btn-primary">Reply to this Post</button>
+    <div class="text-end">
+        <button id="show-reply-form" class="btn btn-primary">Reply to this Post</button>
+    </div>
+    <!-- Hidden reply form -->
+    <div id="reply-form-container" class="col-md-6 mb-4 mt-3 mx-auto" style="display: none;">
+        <div class="card-body">
+            <h3 id="form-title">Post a reply:</h3>
+            <p>Posting as: {{ user.username }}</p>
+            <form id="replyForm" method="post" action="{% url 'conversation' slug=post.slug %}"
+                style="margin-top: 1.3em;">
+                {{ reply_form|crispy }}
+                {% csrf_token %}
+                <!-- Hidden input to store reply ID for editing -->
+                <input type="hidden" id="reply_id_input" name="reply_id" value="">
+                <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
+            </form>
         </div>
-        <!-- Hidden reply form -->
-        <div id="reply-form-container" class="col-md-6 mb-4 mt-3 mx-auto" style="display: none;">
-            <div class="card-body">
-                <h3 id="form-title">Post a reply:</h3>
-                <p>Posting as: {{ user.username }}</p>
-                <form id="replyForm" method="post" action="{% url 'conversation' slug=post.slug %}" style="margin-top: 1.3em;">
-                    {{ reply_form|crispy }}
-                    {% csrf_token %}
-                    <!-- Hidden input to store reply ID for editing -->
-                    <input type="hidden" id="reply_id_input" name="reply_id" value="">
-                    <button id="submitButton" type="submit" class="btn btn-signup btn-lg">Submit</button>
-                </form>
-            </div>
-        </div>
+    </div>
     {% else %}
-        <p><a href="{% url 'account_login' %}?next={{ request.path }}">Login</a> to like or reply to this post.</p>
+    <p><a href="{% url 'account_login' %}?next={{ request.path }}">Login</a> to like or reply to this post.</p>
     {% endif %}
 </div>
 
@@ -93,50 +94,44 @@
             <hr>
             <!-- Displaying replies | highlighting users replies -->
             {% if replies %}
-                <ul>
-                    {% for reply in replies %}
-                    <li>
-                        <div class="{% if reply.author == user %}user-reply {% else %} reply {% endif %}">
-                            <p id="reply{{reply.id}}" class="text-black">{{ reply.content }}</p>
-                            <hr>
-                            {% if reply.author == user %}
-                                <p>
-                                    
-                                        Reply by 
-                                        <a href="{% url 'user_profile' username=reply.author.username %}">
-                                            <span class="badge bg-warning text-dark">
-                                                -- you --
-                                            </span>
-                                        </a> on {{ reply.created_on }}
-                                    
-                                </p>
-                            {% else %} 
-                                <p>
-                                    
-                                        Reply by 
-                                        <a href="{% url 'user_profile' username=reply.author.username %}">
-                                            <span class="badge bg-warning text-dark">
-                                                {{ reply.author }}
-                                            </span>
-                                        </a>
-                                         on {{ reply.created_on }}
-                                    
-                                </p>
-                            {% endif %}
-                            {% if user.is_authenticated and reply.author == user %}
-                                <p class="text-muted mt-3"> do you want to edit or delete your reply?</p>
-                                <button class="btn btn-delete" reply_id="{{ reply.id }}">Delete</button>
-                                <button id="show-edit-reply-form" class="btn btn-edit" reply_id="{{ reply.id }}">Edit</button>
-                            {% endif %}
-                            
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+            <ul>
+                {% for reply in replies %}
+                <li>
+                    <div class="{% if reply.author == user %}user-reply {% else %} reply {% endif %}">
+                        <p id="reply{{reply.id}}" class="text-black">{{ reply.content }}</p>
+                        <hr>
+                        {% if reply.author == user %}
+                        <p>
+                            Reply by
+                            <a href="{% url 'user_profile' username=reply.author.username %}">
+                                <span class="badge bg-warning text-dark">
+                                    -- you --
+                                </span>
+                            </a> on {{ reply.created_on }}
+                        </p>
+                        {% else %}
+                        <p>
+                            Reply by
+                            <a href="{% url 'user_profile' username=reply.author.username %}">
+                                <span class="badge bg-warning text-dark">
+                                    {{ reply.author }}
+                                </span>
+                            </a>
+                            on {{ reply.created_on }}
+                        </p>
+                        {% endif %}
+                        {% if user.is_authenticated and reply.author == user %}
+                        <p class="text-muted mt-3"> do you want to edit or delete your reply?</p>
+                        <button class="btn btn-delete" reply_id="{{ reply.id }}">Delete</button>
+                        <button id="show-edit-reply-form" class="btn btn-edit" reply_id="{{ reply.id }}">Edit</button>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
             {% else %}
-                <p>No replies yet. Be the first to reply!</p>
+            <p>No replies yet. Be the first to reply!</p>
             {% endif %}
-            
         </div>
     </div>
 </div>
@@ -144,28 +139,24 @@
 
 
 <!-- Delete confirmation modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1"
-  aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"
-          id="deleteModalLabel">Delete?</h5>
-        <button type="button" class="btn-close"
-          data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to delete your content?
-        This action cannot be undone.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary"
-          data-bs-dismiss="modal">Close</button>
-        <a id="deleteConfirm" href="#" class="btn
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your content?
+                This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a id="deleteConfirm" href="#" class="btn
           btn-danger">Delete</a>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 {% endblock content %}
