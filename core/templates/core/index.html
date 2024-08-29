@@ -35,17 +35,27 @@
             <div class="row justify-content-center">
 
                 <!-- Sorting Buttons -->
-                <div class="d-flex justify-content-center mb-4">
-                    <a href="?sort=latest"
-                        class="btn btn-sort me-2 {% if sort_by == 'latest' %}active-sort{% endif %}">Latest Posts</a>
-                    <a href="?sort=discussed"
-                        class="btn btn-sort me-2 {% if sort_by == 'discussed' %}active-sort{% endif %}">Most
-                        Discussed</a>
-                    <a href="?sort=liked"
-                        class="btn btn-sort me-2 {% if sort_by == 'liked' %}active-sort{% endif %}">Most Liked</a>
-                    <a href="{% url 'topic_list' %}" class="btn btn-sort">Browse Topics</a>
+                <div class="container">
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-6 col-md-auto mb-2">
+                            <a href="?sort=latest"
+                                class="btn btn-sort w-100 {% if sort_by == 'latest' %}active-sort{% endif %}">Latest Posts</a>
+                        </div>
+                        <div class="col-6 col-md-auto mb-2">
+                            <a href="?sort=discussed"
+                                class="btn btn-sort w-100 {% if sort_by == 'discussed' %}active-sort{% endif %}">Most Discussed</a>
+                        </div>
+                        <div class="col-6 col-md-auto mb-2">
+                            <a href="?sort=liked"
+                                class="btn btn-sort w-100 {% if sort_by == 'liked' %}active-sort{% endif %}">Most Liked</a>
+                        </div>
+                        <div class="col-6 col-md-auto mb-2">
+                            <a href="{% url 'topic_list' %}" class="btn btn-sort w-100">Browse Topics</a>
+                        </div>
+                    </div>
                 </div>
-
+                
+                
                 <!-- <h1 class="text-center mb-4">Latest Posts</h1> -->
                 {% for post in post_list %}
                 <div class="col-md-4 col-lg-3">

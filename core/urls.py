@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views as core_views
+from django.conf.urls import handler404
+
 
 urlpatterns =[
     path('', core_views.PostList.as_view(), name='home'),

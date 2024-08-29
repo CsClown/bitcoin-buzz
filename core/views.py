@@ -8,6 +8,7 @@ from .models import Post, Reply, Topic, UserProfile
 from django.contrib.auth.models import User
 from .forms import ReplyForm, PostForm, UserProfileForm
 
+
 def user_profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(UserProfile, user=user)
