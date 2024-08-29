@@ -6,13 +6,11 @@
     <h1 class="text-center">Browse Topics</h1>
     <div class="row mt-4 mb-4">
         {% for topic in topics %}
-        <div class="col-md-6">  <!-- Two columns on medium and larger screens -->
-            <li class="list-group-item p-0 m-0">
-                <a href="{% url 'topic_posts' topic.pk %}">
-                    <p class="text-white dark-bg p-3 m-0">{{ topic.title }} ({{ topic.get_topic_posts_count }})</p>
-                </a>
-            </li>
-        </div>
+        <li class="list-group-item col-md-6 p-0 m-0">
+            <a href="{% url 'topic_posts' topic.pk %}">
+                <p class="text-white dark-bg p-3 m-0">{{ topic.title }} ({{ topic.get_topic_posts_count }})</p>
+            </a>
+        </li>
         {% endfor %}
     </div>
 </div>
