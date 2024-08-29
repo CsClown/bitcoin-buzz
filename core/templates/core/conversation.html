@@ -56,7 +56,7 @@
 
     {% if user.is_authenticated and post.author == user %}
     <p class="text-muted mt-3"> do you want to delete your post?</p>
-    <button class="btn btn-delete" post_id="{{ post.id }}">Delete</button>
+    <button class="btn btn-delete" data-post_id="{{ post.id }}">Delete</button>
     {% endif %}
 
 
@@ -118,8 +118,8 @@
                         
                         {% if user.is_authenticated and reply.author == user %}
                         <p class="text-muted mt-3"> do you want to edit or delete your reply?</p>
-                        <button class="btn btn-delete" reply_id="{{ reply.id }}">Delete</button>
-                        <button id="show-edit-reply-form" class="btn btn-edit" reply_id="{{ reply.id }}">Edit</button>
+                        <button class="btn btn-delete" data-reply_id="{{ reply.id }}">Delete</button>
+                        <button id="show-edit-reply-form" class="btn btn-edit" data-reply_id="{{ reply.id }}">Edit</button>
                         {% endif %}
                     </div>
                 </li>
