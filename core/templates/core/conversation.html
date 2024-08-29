@@ -98,10 +98,30 @@
                     <li>
                         <div class="{% if reply.author == user %}user-reply {% else %} reply {% endif %}">
                             <p id="reply{{reply.id}}" class="text-black">{{ reply.content }}</p>
+                            <hr>
                             {% if reply.author == user %}
-                                <p><small>Reply by <strong>-- you --</strong> on {{ reply.created_on }}</small></p>
+                                <p>
+                                    
+                                        Reply by 
+                                        <a href="{% url 'user_profile' username=reply.author.username %}">
+                                            <span class="badge bg-warning text-dark">
+                                                -- you --
+                                            </span>
+                                        </a> on {{ reply.created_on }}
+                                    
+                                </p>
                             {% else %} 
-                                <p><small>Reply by <strong>{{ reply.author }}</strong> on {{ reply.created_on }}</small></p>
+                                <p>
+                                    
+                                        Reply by 
+                                        <a href="{% url 'user_profile' username=reply.author.username %}">
+                                            <span class="badge bg-warning text-dark">
+                                                {{ reply.author }}
+                                            </span>
+                                        </a>
+                                         on {{ reply.created_on }}
+                                    
+                                </p>
                             {% endif %}
                             {% if user.is_authenticated and reply.author == user %}
                                 <p class="text-muted mt-3"> do you want to edit or delete your reply?</p>
