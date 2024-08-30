@@ -11,7 +11,7 @@ const deleteConfirm = document.getElementById("deleteConfirm");
 
 for (let button of editButtons) {
     button.addEventListener("click", (e) => {
-        let replyId = e.target.getAttribute("reply_id");
+        let replyId = e.target.getAttribute("data-reply_id");
         let replyContent = document.getElementById(`reply${replyId}`).innerText;
 
         // Populate the form with the reply content and ID
@@ -54,19 +54,12 @@ document.getElementById("show-reply-form").addEventListener("click", function ()
 * - Displays a confirmation modal (`deleteModal`) to prompt 
 * the user for confirmation before deletion.
 */
-// for (let button of deleteButtons) {
-//     button.addEventListener("click", (e) => {
-//       let replyId = e.target.getAttribute("reply_id");
-//       deleteConfirm.href = `delete_reply/${replyId}`;
-//       deleteModal.show();
-//     });
-//   }
 
 
   for (let button of deleteButtons) {
     button.addEventListener("click", (e) => {
-        let replyId = e.target.getAttribute("reply_id");
-        let postId = e.target.getAttribute("post_id");
+        let replyId = e.target.getAttribute("data-reply_id");
+        let postId = e.target.getAttribute("data-post_id");
 
         if (replyId) {
             deleteConfirm.href = `delete_reply/${replyId}`;
