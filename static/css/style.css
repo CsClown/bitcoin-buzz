@@ -188,7 +188,7 @@ a:hover, a:focus, a:active, a:visited, a:link{
 
 .link {
     color: #e67e22; /* Orange color */
-    text-decoration: none; /* Changed to underline */
+    text-decoration: none; /* Changed to no underline */
 }
 
 .link:hover,

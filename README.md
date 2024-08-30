@@ -21,6 +21,8 @@ Bitcoin Forum is a community-driven platform designed for Bitcoin enthusiasts to
   * [Existing Features](#existing-features)
   * [Future Features](#future-features)
 * [**Deployment**](#deployment)
+  * [Forking GitHub Repository](#forking-the-github-repository)
+  * [Local Clone](#creating-a-local-clone)
 * [**credits**](#credits)
 
 # Goals
