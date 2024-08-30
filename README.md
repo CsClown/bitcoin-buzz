@@ -13,6 +13,7 @@ Bitcoin Forum is a community-driven platform designed for Bitcoin enthusiasts to
     * [External User's Goal](<#external-users-goal>)
     * [Site Owners Goal](<#site-owners-goal>)
 * [**User Experience (UX)**](#user-experience)
+    * [Entity Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
     * [Wireframes](#wireframes)
     * [User Stories](#user-stories)
     * [Site Structure](#site-structure)
@@ -35,6 +36,10 @@ Bitcoin Forum is a community-driven platform designed for Bitcoin enthusiasts to
 [Back to top](<#table-of-content>)
 
 # User Experience
+
+## Entity Relationship Diagram (ERD)
+
+![ERD](readme/assets/images/BB_ERD.png)
 
 ## Wireframes
 
@@ -306,7 +311,6 @@ These future enhancements aim to make the Bitcoin Forum even more interactive, u
 * [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) - Used to test performance of site.
 * [Responsive Design Checker](https://www.responsivedesignchecker.com/) - Used for responsiveness check.
 * [Wave Web Accessibility Evaluation Tool](https://wave.webaim.org/) - Used to validate the sites accessibility.
-* [a11y Color Contrast Accessibility Validator](https://color.a11y.com/Contrast/) - Used to test color contrast on the site
 * [Favicon](https://favicon.io/) - Used to create the favicon.
 * [Google Chrome DevTools](https://developer.chrome.com/docs/devtools/) - Used to debug and test responsiveness.
 * [ChatGPT](http://chatgpt.com) AI tool for troubleshooting and repetitive tasks.
