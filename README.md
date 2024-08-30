@@ -21,6 +21,7 @@ Bitcoin Forum is a community-driven platform designed for Bitcoin enthusiasts to
 * [**Features**](#features)
   * [Existing Features](#existing-features)
   * [Future Features](#future-features)
+* [**Testing**](#testing)
 * [**Deployment**](#deployment)
   * [Forking GitHub Repository](#forking-the-github-repository)
   * [Local Clone](#creating-a-local-clone)
@@ -320,6 +321,12 @@ These future enhancements aim to make the Bitcoin Forum even more interactive, u
 * [JSHint Validation](https://jshint.com/) - Used to validate JavaScript code
 
 [Back to top](<#table-of-content>)
+
+## Testing
+
+For detailed information on testing, please refer to the [TESTING.md](TESTING.md) file.
+
+
 
 ## Deployment
 
